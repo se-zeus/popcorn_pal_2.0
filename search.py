@@ -13,9 +13,7 @@ project_dir = os.path.dirname(code_dir)
 #anywhere: Searches for the input word within any part of the movie titles and returns a list of matching movie titles. It avoids revisiting titles already found.
 #results: Combines results from both startsWith and anywhere methods and returns a consolidated list of movie titles matching the input word.
 #resultsTop10: Similar to results, but returns only the top 10 matching movie titles
-
 class Search:
-
     df = pd.read_csv(project_dir + "/data/movies.csv")
 
     def __init__(self):
@@ -27,10 +25,10 @@ class Search:
         word = word.lower()
         for x in self.df["title"]:
             curr = x.lower()
-            if curr[:n] == word:
+            # Refine the condition to check the start of each title exactly
+            if curr.startswith(word):
                 res.append(x)
         return res
-
     def anywhere(self, word, visitedWords):
         res = []
         word = word.lower()

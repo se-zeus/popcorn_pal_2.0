@@ -143,22 +143,26 @@ def recommend():
         rec_ids = convert_to_list_num(rec_ids)
 
         for i in range(len(cast_bios)):
-            cast_bios[i] = cast_bios[i].replace(r'\n', '\n').replace(r'\"','\"')
+            cast_bios[i] = cast_bios[i].replace(r'\n', '\n').replace(r'\"', '\"')
 
         for i in range(len(cast_chars)):
-            cast_chars[i] = cast_chars[i].replace(r'\n', '\n').replace(r'\"','\"') 
+            cast_chars[i] = cast_chars[i].replace(r'\n', '\n').replace(r'\"', '\"')
 
-        movie_cards = {rec_posters[i]: [rec_movies[i],rec_movies_org[i],rec_vote[i],rec_year[i],rec_ids[i]] for i in range(len(rec_posters))}
-        casts = {cast_names[i]:[cast_ids[i], cast_chars[i], cast_profiles[i]] for i in range(len(cast_profiles))}
-        cast_details = {cast_names[i]:[cast_ids[i], cast_profiles[i], cast_bdays[i], cast_places[i], cast_bios[i]] for i in range(len(cast_places))}
-        
-        if(imdb_id != ""):
+        movie_cards = {rec_posters[i]: [rec_movies[i], rec_movies_org[i], rec_vote[i], rec_year[i], rec_ids[i]] for i in
+                       range(len(rec_posters))}
+        casts = {cast_names[i]: [cast_ids[i], cast_chars[i], cast_profiles[i]] for i in range(len(cast_profiles))}
+        cast_details = {cast_names[i]: [cast_ids[i], cast_profiles[i], cast_bdays[i], cast_places[i], cast_bios[i]] for
+                        i in range(len(cast_places))}
 
-            # sauce = urllib.request.urlopen('https://www.imdb.com/title/{}/reviews?ref_=tt_ov_rt'.format(imdb_id)).read()
+        print(imdb_id)
+
+        if (imdb_id != ""):
             url = 'https://www.imdb.com/title/{}/reviews?ref_=tt_ov_rt'.format(imdb_id)
-            sauce = urllib.request.urlopen(url).read()
-            soup = bs.BeautifulSoup(sauce,'lxml')
-            soup_result = soup.find_all("div",{"class":"text show-more__control"})
+            headers = {'Authorization': f'Bearer {"bab2b00a4e94bbaac96b9d7a2c3716b3"}'}
+            req = urllib.request.Request(url, headers=headers)
+            sauce = urllib.request.urlopen(req).read()
+            soup = bs.BeautifulSoup(sauce, 'lxml')
+            soup_result = soup.find_all("div", {"class": "text show-more__control"})
 
             reviews_list = []
             reviews_status = []
@@ -172,19 +176,26 @@ def recommend():
 
             movie_rel_date = ""
             curr_date = ""
-            if(rel_date):
+            if (rel_date):
                 today = str(date.today())
-                curr_date = datetime.strptime(today,'%Y-%m-%d')
+                curr_date = datetime.strptime(today, '%Y-%m-%d')
                 movie_rel_date = datetime.strptime(rel_date, '%Y-%m-%d')
 
-            movie_reviews = {reviews_list[i]: reviews_status[i] for i in range(len(reviews_list))}     
+            movie_reviews = {reviews_list[i]: reviews_status[i] for i in range(len(reviews_list))}
 
-            return render_template('recommend.html',title=title,poster=poster,overview=overview,vote_average=vote_average,
-                vote_count=vote_count,release_date=release_date,movie_rel_date=movie_rel_date,curr_date=curr_date,runtime=runtime,status=status,genres=genres,movie_cards=movie_cards,reviews=movie_reviews,casts=casts,cast_details=cast_details)
+            return render_template('recommend.html', title=title, poster=poster, overview=overview,
+                                   vote_average=vote_average,
+                                   vote_count=vote_count, release_date=release_date, movie_rel_date=movie_rel_date,
+                                   curr_date=curr_date, runtime=runtime, status=status, genres=genres,
+                                   movie_cards=movie_cards, reviews=movie_reviews, casts=casts,
+                                   cast_details=cast_details)
 
         else:
-            return render_template('recommend.html',title=title,poster=poster,overview=overview,vote_average=vote_average,
-                vote_count=vote_count,release_date=release_date,movie_rel_date="",curr_date="",runtime=runtime,status=status,genres=genres,movie_cards=movie_cards,reviews="",casts=casts,cast_details=cast_details)
+            return render_template('recommend.html', title=title, poster=poster, overview=overview,
+                                   vote_average=vote_average,
+                                   vote_count=vote_count, release_date=release_date, movie_rel_date="", curr_date="",
+                                   runtime=runtime, status=status, genres=genres, movie_cards=movie_cards, reviews="",
+                                   casts=casts, cast_details=cast_details)
     except Exception as e:
         logging.error(f"Error in recommend route: {e}")
         logging.error(f"URL: {request.url}")
@@ -192,5 +203,6 @@ def recommend():
         logging.error(traceback.format_exc())
         return "An error occurred."
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(debug=True)
