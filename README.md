@@ -158,7 +158,7 @@ The project is not currently funded
 
 ## Future Roadmap 🌠
 
-See RoadMap [here](https://github.com/users/SurajRKU/projects/1/views/2)
+See RoadMap [here](https://github.com/vbuddar/movie_recommender/wiki/roadmap)
 
 *For a detailed description of the same, please refer to the comment for each item*
 
@@ -166,16 +166,20 @@ See RoadMap [here](https://github.com/users/SurajRKU/projects/1/views/2)
 [Raise an issue](https://github.com/SurajRKU/SE_PROJECT_GRP_12/issues/new) on this repository, we would love to look at it ❤️
 
 # Contributors 👥
-  <table>
+<table>
   <tr>
-    <td align="center"><a href="https://github.com/prathyu99"><img src="https://avatars.githubusercontent.com/u/33190791?v=4" width="100px;" alt=""/><br /><sub><b>Prathyusha Kodali</b></sub></a></td>
-    <td align="center"><a href="https://github.com/aravinda-1402"><img src="https://avatars.githubusercontent.com/u/71303848?v=4" width="100px;" alt=""/><br /><sub><b>Aravinda Raman Jatavallabha</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/SurajRKU"><img src="https://avatars.githubusercontent.com/u/53537228?v=4" width="100px;" alt=""/><br /><sub><b>Suraj Raghu Kumar</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/yuktasree"><img src="https://avatars.githubusercontent.com/u/64723066?v=4" width="100px;" alt=""/><br /><sub><b>Yuktasree Muppala</b></sub></a><br /></td>
+    <td align="center">
+      <sub><b>Naga Buddarapu</b></sub><br />
+      <a href="mailto:v.naga.buddarapu">v.naga.buddarapu@gmail.com</a>
+    </td>
+    <td align="center">
+      <sub><b>Youbin Kim</b></sub><br />
+      <a href="mailto:se.youbin@gmail.com">se.youbin@gmail.com</a>
+    </td>
   </tr>
 </table>
 
-**For any further support please email us:** segrp12fall2023@gmail.com 
+**For any further support please email us:** se.youbin@gmail.com
 
 
 
