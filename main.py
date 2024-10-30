@@ -20,7 +20,6 @@ from flask import jsonify
 from flask import session
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a strong secret key
 
 # Replace with your MongoDB connection string
 uri = "mongodb+srv://seyoubin:seyoubin@csc510.pdrzq.mongodb.net/?retryWrites=true&w=majority&appName=csc510"
@@ -235,13 +234,12 @@ def signup():
 
     return render_template('signup.html')
 
-from flask import session
-
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        print(f"Username: {username}, Password: {password}")
 
         user = users_collection.find_one({'username': username})
         if user and bcrypt.checkpw(password.encode('utf-8'), user['password']):
@@ -266,4 +264,5 @@ def my_profile():
     return render_template('signin.html')
 
 if __name__ == '__main__':
+    app.secret_key = "super secret key"
     app.run(debug=True)
