@@ -30,10 +30,93 @@
       $("#myModal").modal('show');
     });
   </script>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+      .navbar {
+          display: flex;
+          justify-content: flex-end;
+          padding: 10px;
+          background-color: #f0f0f0;
+          position: relative;
+      }
+      .navbar a {
+          text-decoration: none;
+          color: #007BFF;
+          padding: 10px 15px;
+          transition: background-color 0.3s;
+          margin-left: 10px; /* Space between links */
+      }
+      .navbar a:hover {
+          background-color: #007BFF;
+          color: white;
+      }
+      .dropdown {
+          position: relative;
+          display: inline-block;
+          margin-left: 10px; /* Reduced space between greeting and username */
+      }
+      .username {
+          font-size: 22px; /* Increased font size for username */
+          text-decoration: underline; /* Underline for username */
+          cursor: pointer; /* Pointer cursor on hover */
+      }
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          right: 0;
+          background-color: white;
+          min-width: 160px;
+          box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+          z-index: 1;
+      }
+      .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+      }
+      .dropdown-content a:hover {
+          background-color: #f1f1f1;
+      }
+      .dropdown:hover .dropdown-content {
+          display: block; /* Show dropdown on hover */
+      }
+      .greeting {
+          font-size: 22px; /* Same font size as username */
+          margin-right: 5px; /* Reduced space between greeting and username */
+      }
+  </style>
 
 </head>
 
 <body id="content" style="font-family: 'Noto Sans JP', sans-serif;">
+  <div class="navbar">
+    {% if session.username %}
+        <span class="greeting">Hello,</span>
+        <div class="dropdown">
+            <span class="username">{{ session.username }}</span>
+            <div class="dropdown-content">
+                <a href="{{ url_for('my_profile') }}">My Profile</a>
+                <a href="#" onclick="signOut()">Sign Out</a>
+            </div>
+        </div>
+    {% else %}
+        <a href="{{ url_for('signin') }}">Sign In</a>
+    {% endif %}
+</div>
+<script>
+    function signOut() {
+        // Show the alert message
+        alert("You are signed out!");
+        
+        // Redirect to the signout route
+        window.location.href = "{{ url_for('signout') }}";
+    }
+</script>
 <div class="body-content">
 	<div class="ml-container" style="display: block;">
 		<!-- <a href="https://github.com/kishan0725/The-Movie-Cinema" target="_blank" class="github-corner" title="View source on GitHub">

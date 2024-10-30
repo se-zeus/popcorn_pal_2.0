@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .checkbox-group {
+            margin: 10px 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .back-home {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('signup-form').onsubmit = function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(this);
+
+                fetch("{{ url_for('signup') }}", {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert(data.message); // Show success message
+                        window.location.href = "{{ url_for('signin') }}"; // Redirect to sign in
+                    } else {
+                        document.getElementById('error-message').textContent = data.message; // Show error message
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            };
+        });
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Sign Up</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+        <form id="signup-form">
+            <label for="username">Username:</label>
+            <input type="text" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm_password" required>
+            <h3>Preferred Movie Genres:</h3>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="genre" value="Action"> Action</label>
+                <label><input type="checkbox" name="genre" value="Comedy"> Comedy</label>
+                <label><input type="checkbox" name="genre" value="Drama"> Drama</label>
+                <label><input type="checkbox" name="genre" value="Horror"> Horror</label>
+                <label><input type="checkbox" name="genre" value="Sci-Fi"> Sci-Fi</label>
+                <label><input type="checkbox" name="genre" value="Fantasy"> Fantasy</label>
+                <label><input type="checkbox" name="genre" value="Romance"> Romance</label>
+                <label><input type="checkbox" name="genre" value="Thriller"> Thriller</label>
+                <label><input type="checkbox" name="genre" value="Mystery"> Mystery</label>
+                <label><input type="checkbox" name="genre" value="Animation"> Animation</label>
+                <label><input type="checkbox" name="genre" value="Documentary"> Documentary</label>
+            </div>
+            <div id="error-message" class="error-message"></div>
+            <button type="submit">Sign Up</button>
+        </form>
+        
+        <div class="back-home">
+            <a href="{{ url_for('home') }}">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
