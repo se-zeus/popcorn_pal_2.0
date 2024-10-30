@@ -5,6 +5,7 @@
 ![Framework](https://img.shields.io/badge/Framework-Flask-red)
 ![Frontend](https://img.shields.io/badge/Frontend-HTML/CSS/JS-green)
 ![API](https://img.shields.io/badge/API-TMDB-fcba03)
+![Static Badge](https://img.shields.io/badge/Database-MongoDB-pink)
 ![Coverage](https://img.shields.io/badge/coverage-97%25-brightgreen)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://gitHub.com/SurajRKU/SE_PROJECT_GRP_12/graphs/commit-activity) 
 [![Contributors Activity](https://img.shields.io/github/commit-activity/m/kgudipe/SE_PROJ)](https://github.com/SurajRKU/SE_PROJECT_GRP_12/pulse) 
