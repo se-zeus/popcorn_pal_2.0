@@ -253,7 +253,13 @@ def signin():
 @app.route('/signout')
 def signout():
     session.clear()  # Clear the session
-    return render_template('home.html')
+    try:
+        suggestions = get_suggestions()
+        return render_template('home.html', suggestions=suggestions)
+    except Exception as e:
+        logging.error(f"Error in home route: {e}")
+        logging.error(traceback.format_exc())
+        return "An error occurred."
 
 @app.route('/myprofile')
 def my_profile():

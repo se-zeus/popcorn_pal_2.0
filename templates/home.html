@@ -94,28 +94,29 @@
 
 <body id="content" style="font-family: 'Noto Sans JP', sans-serif;">
   <div class="navbar">
-    {% if session.username %}
-        <span class="greeting">Hello,</span>
-        <div class="dropdown">
-            <span class="username">{{ session.username }}</span>
-            <div class="dropdown-content">
-                <a href="{{ url_for('my_profile') }}">My Profile</a>
-                <a href="#" onclick="signOut()">Sign Out</a>
-            </div>
-        </div>
-    {% else %}
-        <a href="{{ url_for('signin') }}">Sign In</a>
-    {% endif %}
-</div>
-<script>
+      {% if session.username %}
+          <span class="greeting">Hello,</span>
+          <div class="dropdown">
+              <span class="username">{{ session.username }}</span>
+              <div class="dropdown-content">
+                  <a href="{{ url_for('my_profile') }}">My Profile</a>
+                  <a href="#" onclick="signOut()">Sign Out</a>
+              </div>
+          </div>
+      {% else %}
+          <a href="{{ url_for('signin') }}">Sign In</a>
+      {% endif %}
+  </div>
+  <script>
     function signOut() {
         // Show the alert message
         alert("You are signed out!");
-        
-        // Redirect to the signout route
+
+        // Redirect to the signout route after a delay
         window.location.href = "{{ url_for('signout') }}";
     }
-</script>
+  </script>
+
 <div class="body-content">
 	<div class="ml-container" style="display: block;">
 		<!-- <a href="https://github.com/kishan0725/The-Movie-Cinema" target="_blank" class="github-corner" title="View source on GitHub">
