@@ -21,6 +21,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install coverage codecov
+          pip install pytest pytest-cov  # Ensure pytest and pytest-cov are installed
 
       - name: Run tests with coverage
         run: |
