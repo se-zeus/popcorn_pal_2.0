@@ -15,19 +15,19 @@ import logging
 import traceback
 import urllib.error
 from recommender import MovieRecommender
-from flask import Flask, render_template, request, redirect, url_for, flash
-from pymongo import MongoClient
-import bcrypt
-from flask import jsonify
-from flask import session
+# from flask import Flask, render_template, request, redirect, url_for, flash
+# from pymongo import MongoClient
+# import bcrypt
+# from flask import jsonify
+# from flask import session
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-# Replace with your MongoDB connection string
-uri = "mongodb+srv://seyoubin:seyoubin@csc510.pdrzq.mongodb.net/?retryWrites=true&w=majority&appName=csc510"
-client = MongoClient(uri)
-db = client['test']  # Use your database name
-users_collection = db['users']  # Use your collection name
+# # Replace with your MongoDB connection string
+# uri = "mongodb+srv://seyoubin:seyoubin@csc510.pdrzq.mongodb.net/?retryWrites=true&w=majority&appName=csc510"
+# client = MongoClient(uri)
+# db = client['test']  # Use your database name
+# users_collection = db['users']  # Use your collection name
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -189,71 +189,71 @@ def recommend():
         logging.error(f"Error fetching recommendations: {error_traceback}")
         return render_template("error.html", error_message="An error occurred while fetching recommendations.", traceback=error_traceback)
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        confirm_password = request.form['confirm_password']
-        genres = request.form.getlist('genre')
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         password = request.form['password']
+#         confirm_password = request.form['confirm_password']
+#         genres = request.form.getlist('genre')
 
-        if password != confirm_password:
-            return jsonify({'status': 'error', 'message': 'Passwords do not match!'}), 400
+#         if password != confirm_password:
+#             return jsonify({'status': 'error', 'message': 'Passwords do not match!'}), 400
 
-        # Check if user already exists
-        if users_collection.find_one({'username': username}):
-            return jsonify({'status': 'error', 'message': 'User already exists!'}), 400
+#         # Check if user already exists
+#         if users_collection.find_one({'username': username}):
+#             return jsonify({'status': 'error', 'message': 'User already exists!'}), 400
 
-        # Hash the password
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+#         # Hash the password
+#         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-        # Create a new user
-        users_collection.insert_one({
-            'username': username,
-            'password': hashed_password,
-            'preferred_genres': genres
-        })
+#         # Create a new user
+#         users_collection.insert_one({
+#             'username': username,
+#             'password': hashed_password,
+#             'preferred_genres': genres
+#         })
 
-        return jsonify({'status': 'success', 'message': 'Your account has been created!'}), 201
+#         return jsonify({'status': 'success', 'message': 'Your account has been created!'}), 201
 
-    return render_template('signup.html')
+#     return render_template('signup.html')
 
-@app.route('/signin', methods=['GET', 'POST'])
-def signin():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        print(f"Username: {username}, Password: {password}")
+# @app.route('/signin', methods=['GET', 'POST'])
+# def signin():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         password = request.form['password']
+#         print(f"Username: {username}, Password: {password}")
 
-        user = users_collection.find_one({'username': username})
-        if user and bcrypt.checkpw(password.encode('utf-8'), user['password']):
-            session['username'] = username  # Store username in session
-            return jsonify({'status': 'success', 'message': 'You are signed in!'}), 200
+#         user = users_collection.find_one({'username': username})
+#         if user and bcrypt.checkpw(password.encode('utf-8'), user['password']):
+#             session['username'] = username  # Store username in session
+#             return jsonify({'status': 'success', 'message': 'You are signed in!'}), 200
         
-        return jsonify({'status': 'error', 'message': 'Check your username or password.'}), 400
+#         return jsonify({'status': 'error', 'message': 'Check your username or password.'}), 400
 
-    return render_template('signin.html')
+#     return render_template('signin.html')
 
-@app.route('/signout')
-def signout():
-    session.clear()  # Clear the session
-    try:
-        suggestions = Utility.get_suggestions()
-        return render_template('home.html', suggestions=suggestions)
-    except Exception as e:
-        logging.error(f"Error in home route: {e}")
-        logging.error(traceback.format_exc())
-        return "An error occurred."
+# @app.route('/signout')
+# def signout():
+#     session.clear()  # Clear the session
+#     try:
+#         suggestions = Utility.get_suggestions()
+#         return render_template('home.html', suggestions=suggestions)
+#     except Exception as e:
+#         logging.error(f"Error in home route: {e}")
+#         logging.error(traceback.format_exc())
+#         return "An error occurred."
 
 
-@app.route('/myprofile')
-def my_profile():
-    if 'username' in session:
-        username = session['username']
-        user = users_collection.find_one({'username': username})
-        return render_template('myprofile.html', user=user)
-    return render_template('signin.html')
+# @app.route('/myprofile')
+# def my_profile():
+#     if 'username' in session:
+#         username = session['username']
+#         user = users_collection.find_one({'username': username})
+#         return render_template('myprofile.html', user=user)
+#     return render_template('signin.html')
 
 if __name__ == "__main__":
-    app.secret_key = "super secret key"
+    # app.secret_key = "super secret key"
     app.run(debug=True)
