@@ -6,6 +6,8 @@ import sys
 import os
 
 app_dir = os.path.dirname(os.path.abspath(__file__))
+print("App directory:")
+print(app_dir)
 code_dir = os.path.dirname(app_dir)
 project_dir = os.path.dirname(code_dir)
 
@@ -14,6 +16,7 @@ project_dir = os.path.dirname(code_dir)
 #results: Combines results from both startsWith and anywhere methods and returns a consolidated list of movie titles matching the input word.
 #resultsTop10: Similar to results, but returns only the top 10 matching movie titles
 class Search:
+    print("project directory:" + project_dir)
     df = pd.read_csv(project_dir + "/data/movies.csv")
 
     def __init__(self):

@@ -19,7 +19,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
-
+import traceback
 
 class MovieRecommender:
     """
@@ -32,7 +32,7 @@ class MovieRecommender:
         cosine_sim (np.ndarray): Cosine similarity matrix for movie embeddings.
     """
 
-    def __init__(self, data_path="tmdb_5000_movies.csv", model_name="all-MiniLM-L6-v2"):
+    def __init__(self, data_path="./data/tmdb_5000_movies_sample.csv", model_name="all-MiniLM-L6-v2"):
         """
         Initializes the MovieRecommender with specified dataset and model.
 
@@ -42,6 +42,7 @@ class MovieRecommender:
         """
         self.data_path = data_path
         self.embeddings_path = data_path.replace(".csv", "_embeddings.json")
+        print(self.embeddings_path)
         self.model = SentenceTransformer(model_name)
         self.movies_df = self._load_data()
         self._generate_embeddings_if_needed()
@@ -85,6 +86,7 @@ class MovieRecommender:
             self.movies_df['embedding'] = [np.array(embed) for embed in embeddings]
             return True
         except (FileNotFoundError, ValueError, json.JSONDecodeError):
+            print("Could not load embeddings from file.", self.embeddings_path)
             return False
 
     def get_recommendations_by_id(self, movie_id, top_n=10):

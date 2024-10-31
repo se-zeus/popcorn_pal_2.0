@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import pandas as pd
 from flask import Flask, render_template, request
@@ -31,25 +33,13 @@ class ConfigManager:
     def load_config(self):
         # Load configuration from the file
         self.config = {
-            'api_key': 'bab2b00a4e94bbaac96b9d7a2c3716b3'  # Replace with actual API key
+            'api_key': ''  # Replace with actual API key
         }
 
     @property
     def api_key(self):
         return self.config['api_key']
 
-class ModelLoader:
-    @staticmethod
-    def load_models():
-        try:
-            clf = pickle.load(open('nlp_model.pkl', 'rb'))
-            vectorizer = pickle.load(open('tranform.pkl', 'rb'))
-            logging.info("Models loaded successfully.")
-            return clf, vectorizer
-        except Exception as e:
-            logging.error(f"Error loading models: {e}")
-            logging.error(traceback.format_exc())
-            return None, None
 
 class Utility:
     @staticmethod
@@ -92,7 +82,8 @@ class Utility:
     @staticmethod
     def get_suggestions():
         try:
-            data = pd.read_csv('main_data.csv')
+            print(os.getcwd())
+            data = pd.read_csv('/data/tmdb_5000_movies_sample.csv')
             return list(data['movie_title'].str.capitalize())
         except Exception as e:
             logging.error(f"Error in get_suggestions: {e}")
