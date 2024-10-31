@@ -2,6 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10212033.svg)](https://doi.org/10.5281/zenodo.10212033)
 ![Python](https://img.shields.io/badge/Python-3.6.13-blueviolet)
+![Database](https://img.shields.io/badge/Database-MongoDB-pink)
 ![Framework](https://img.shields.io/badge/Framework-Flask-red)
 ![Frontend](https://img.shields.io/badge/Frontend-HTML/CSS/JS-green)
 ![API](https://img.shields.io/badge/API-TMDB-fcba03)
