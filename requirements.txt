@@ -15,3 +15,5 @@ lxml
 urllib3
 requests
 pickleshare
+coverage
+sentence-transformers

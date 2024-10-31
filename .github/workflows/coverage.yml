@@ -1,0 +1,34 @@
+name: Test and Upload Coverage
+
+on:
+  push:    # Triggers on push to any branch
+  pull_request:    # Triggers on pull requests to any branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install coverage codecov
+
+      - name: Run tests with coverage
+        run: |
+          coverage run -m unittest discover
+          coverage xml  # Generates coverage.xml needed for Codecov
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}  # Only needed for private repos
+          files: ./coverage.xml
