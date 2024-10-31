@@ -23,6 +23,10 @@ jobs:
           pip install coverage codecov
           pip install pytest pytest-cov  # Ensure pytest and pytest-cov are installed
 
+      # Add PYTHONPATH to allow imports from the project directory
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
+
       - name: Run tests with coverage
         run: |
           pytest --cov --cov-report=xml
