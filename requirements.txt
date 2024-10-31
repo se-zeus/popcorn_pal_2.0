@@ -17,3 +17,6 @@ requests
 pickleshare
 coverage
 sentence-transformers
+pymongo
+bcrypt
+pymongo[srv]
