@@ -19,7 +19,7 @@ from recommender import MovieRecommender
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-movie_recommender = MovieRecommender("/Users/buddarvx/Desktop/data/tmdb_5000_movies.csv")
+movie_recommender = MovieRecommender()
 class ConfigManager:
     _instance = None
 
