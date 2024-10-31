@@ -24,7 +24,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          coverage run -m unittest discover
+          coverage run -m unittest discover -s tests
           coverage xml  # Generates coverage.xml needed for Codecov
 
       - name: Upload coverage to Codecov
