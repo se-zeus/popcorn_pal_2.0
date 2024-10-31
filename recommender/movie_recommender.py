@@ -87,6 +87,19 @@ class MovieRecommender:
         except (FileNotFoundError, ValueError, json.JSONDecodeError):
             return False
 
+    def get_recommendations_by_id(self, movie_id, top_n=10):
+        # Find the index of the movie by ID
+        idx = self.movies_df.index[self.movies_df['id'] == int(movie_id)].tolist()[0]
+
+        # Get similar movies based on the cosine similarity matrix
+        sim_scores = list(enumerate(self.cosine_sim[idx]))
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+        sim_scores = sim_scores[1:top_n + 1]
+
+        # Get movie details for recommendations
+        movie_indices = [i[0] for i in sim_scores]
+        return self.movies_df.loc[movie_indices, ['id', 'title', 'overview', 'genres', 'release_date']].to_dict(orient='records')
+
     def _calculate_similarity_matrix(self):
         """
         Calculates the cosine similarity matrix for all movie embeddings.

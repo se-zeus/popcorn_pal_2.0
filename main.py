@@ -12,10 +12,12 @@ from datetime import date, datetime
 import logging
 import traceback
 import urllib.error
+from recommender import MovieRecommender
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+movie_recommender = MovieRecommender("/Users/buddarvx/Desktop/data/tmdb_5000_movies.csv")
 class ConfigManager:
     _instance = None
 
@@ -173,63 +175,15 @@ def populate_matches():
 
 @app.route("/recommend", methods=["POST"])
 def recommend():
+    movie_id = request.form.get('movie_id')
     try:
-        form_data = request.form
-        title = form_data['title']
-        cast_ids = Utility.convert_to_list_num(form_data['cast_ids'])
-        cast_names = Utility.convert_to_list(form_data['cast_names'])
-        cast_chars = Utility.convert_to_list(form_data['cast_chars'])
-        cast_bdays = Utility.convert_to_list(form_data['cast_bdays'])
-        cast_bios = Utility.convert_to_list(form_data['cast_bios'])
-        cast_places = Utility.convert_to_list(form_data['cast_places'])
-        cast_profiles = Utility.convert_to_list(form_data['cast_profiles'])
-        imdb_id = form_data['imdb_id']
-        poster = form_data['poster']
-        genres = form_data['genres']
-        overview = form_data['overview']
-        vote_average = form_data['rating']
-        vote_count = form_data['vote_count']
-        rel_date = form_data['rel_date']
-        release_date = form_data['release_date']
-        runtime = form_data['runtime']
-        status = form_data['status']
-        rec_movies = Utility.convert_to_list(form_data['rec_movies'])
-        rec_posters = Utility.convert_to_list(form_data['rec_posters'])
-        rec_movies_org = Utility.convert_to_list(form_data['rec_movies_org'])
-        rec_year = Utility.convert_to_list_num(form_data['rec_year'])
-        rec_vote = Utility.convert_to_list_num(form_data['rec_vote'])
-        rec_ids = Utility.convert_to_list_num(form_data['rec_ids'])
-
-        for i in range(len(cast_bios)):
-            cast_bios[i] = cast_bios[i].replace(r'\n', '\n').replace(r'\"', '\"')
-
-        for i in range(len(cast_chars)):
-            cast_chars[i] = cast_chars[i].replace(r'\n', '\n').replace(r'\"', '\"')
-
-        movie_cards = {rec_posters[i]: [rec_movies[i], rec_movies_org[i], rec_vote[i], rec_year[i], rec_ids[i]] for i in range(len(rec_posters))}
-        casts = {cast_names[i]: [cast_ids[i], cast_chars[i], cast_profiles[i]] for i in range(len(cast_profiles))}
-        cast_details = {cast_names[i]: [cast_ids[i], cast_profiles[i], cast_bdays[i], cast_places[i], cast_bios[i]] for i in range(len(cast_places))}
-
-        recommender = MovieRecommender(clf, vectorizer)
-
-        if imdb_id:
-            movie_reviews = recommender.fetch_movie_reviews(imdb_id)
-            movie_rel_date, curr_date = recommender.get_release_dates(rel_date)
-            return render_template('recommend.html', title=title, poster=poster, overview=overview, vote_average=vote_average,
-                                   vote_count=vote_count, release_date=release_date, movie_rel_date=movie_rel_date,
-                                   curr_date=curr_date, runtime=runtime, status=status, genres=genres,
-                                   movie_cards=movie_cards, reviews=movie_reviews, casts=casts, cast_details=cast_details)
-        else:
-            return render_template('recommend.html', title=title, poster=poster, overview=overview, vote_average=vote_average,
-                                   vote_count=vote_count, release_date=release_date, movie_rel_date="", curr_date="",
-                                   runtime=runtime, status=status, genres=genres, movie_cards=movie_cards, reviews="",
-                                   casts=casts, cast_details=cast_details)
+        # Fetch recommendations based on the movie_id
+        recommendations = movie_recommender.get_recommendations_by_id(movie_id, top_n=10)
+        return render_template("recommendations.html", recommendations=recommendations)
     except Exception as e:
-        logging.error(f"Error in recommend route: {e}")
-        logging.error(f"URL: {request.url}")
-        logging.error(f"Body: {request.get_data()}")
-        logging.error(traceback.format_exc())
-        return "An error occurred."
+        error_traceback = traceback.format_exc()
+        logging.error(f"Error fetching recommendations: {error_traceback}")
+        return render_template("error.html", error_message="An error occurred while fetching recommendations.", traceback=error_traceback)
 
 if __name__ == "__main__":
     app.run(debug=True)

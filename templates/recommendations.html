@@ -1,0 +1,34 @@
+<!-- templates/recommendations.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Recommended Movies</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container my-4">
+  <h1 class="text-center mb-4">Recommended Movies</h1>
+
+  {% if recommendations %}
+    <div class="list-group">
+      {% for movie in recommendations %}
+        <div class="list-group-item">
+          <h5 class="mb-1">{{ movie.title }}</h5>
+          <p class="mb-1"><strong>Rating:</strong> {{ movie.vote_average }}/10</p>
+          <p class="mb-1"><strong>Overview:</strong> {{ movie.overview }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center">No recommendations available.</p>
+  {% endif %}
+</div>
+
+<!-- Bootstrap scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

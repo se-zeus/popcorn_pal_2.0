@@ -335,3 +335,22 @@ function get_movie_cast(movie_id,my_api_key){
     });
     return {rec_movies:rec_movies,rec_movies_org:rec_movies_org,rec_posters:rec_posters,rec_year:rec_year,rec_vote:rec_vote,rec_ids:rec_ids};
   }
+
+  // recommend.js
+function fetchRecommendations(movieId) {
+    // Use JavaScript to open a new window with the movie ID as a form parameter
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/recommend";
+    form.target = "_blank"; // Open in a new tab
+
+    const hiddenField = document.createElement("input");
+    hiddenField.type = "hidden";
+    hiddenField.name = "movie_id";
+    hiddenField.value = movieId;
+
+    form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
