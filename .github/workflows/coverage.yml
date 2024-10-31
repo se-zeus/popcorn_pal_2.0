@@ -9,25 +9,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
+        uses: actions/setup-python@v4
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install coverage codecov
+        run: pip install pytest pytest-cov
 
-      - name: Run tests with coverage
-        run: |
-          coverage run -m unittest discover -s tests
-          coverage xml  # Generates coverage.xml needed for Codecov
+      - name: Run tests
+        run: pytest --cov --cov-report=xml
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
         with:
-          files: ./coverage.xml
+          token: ${{ secrets.secret1 }}
