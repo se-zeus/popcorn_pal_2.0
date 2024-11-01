@@ -1,6 +1,5 @@
 # <i>Movie Recommendation System🎥 </i>
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10212033.svg)](https://doi.org/10.5281/zenodo.10212033)
 ![Python](https://img.shields.io/badge/Python-3.6.13-blueviolet)
 ![Database](https://img.shields.io/badge/Database-MongoDB-pink)
 ![Framework](https://img.shields.io/badge/Framework-Flask-red)
@@ -11,8 +10,6 @@
 [![Contributors Activity](https://img.shields.io/github/commit-activity/m/kgudipe/SE_PROJ)](https://github.com/vbuddar/movie_recommender/pulse) 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
-[![Issues](https://img.shields.io/github/issues/SurajRKU/SE_PROJECT_GRP_12)](https://github.com/vbuddar/movie_recommender/)
-[![Issues Closed](https://img.shields.io/github/issues-closed/SurajRKU/SE_PROJECT_GRP_12)](https://github.com/vbuddar/movie_recommender/)
 [![black](https://img.shields.io/badge/StyleChecker-black-purple.svg)](https://pypi.org/project/black/)
 ![33.5 kB](https://img.shields.io/github/languages/code-size/SurajRKU/SE_PROJECT_GRP_12) ![Language](https://img.shields.io/badge/Language-Python-blue)
 [![contributors](https://img.shields.io/github/contributors/SurajRKU/SE_PROJECT_GRP_12)](https://github.com/vbuddar/movie_recommender/graphs/contributors)
