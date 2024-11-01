@@ -16,6 +16,7 @@
 [![language_count](https://img.shields.io/github/languages/count/SurajRKU/SE_PROJECT_GRP_12)](https://github.com/vbuddar/movie_recommender)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
 ![NLP Model](https://img.shields.io/badge/NLP-Transformer-yellowgreen)
+
 This Movie Recommender System is like having a movie buddy who knows your taste super well. It looks at movie info from TMDB and even checks out what people say on IMDB. Then, it uses something called cosine similarity along with the sentiment analysis to match you with movies you'll love.
 
 Imagine each movie is a star, and cosine similarity is like a cool trick to see which stars go together in the movie universe. You just type in a movie you like, and boom! It suggests other movies you'll probably dig. Setting it up is a breeze—just follow the steps. It's like having your own movie sidekick, making sure every suggestion is spot-on for your movie mood!
