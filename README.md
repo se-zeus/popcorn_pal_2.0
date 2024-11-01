@@ -7,7 +7,6 @@
 ![API](https://img.shields.io/badge/API-TMDB-fcba03)
 [![Coverage Status](https://codecov.io/gh/vbuddar/movie_recommender/graph/badge.svg)](https://codecov.io/gh/vbuddar/movie_recommender)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/vbuddar/movie_recommender/graphs/commit-activity) 
-[![Contributors Activity](https://img.shields.io/github/commit-activity/m/kgudipe/SE_PROJ)](https://github.com/vbuddar/movie_recommender/pulse) 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 [![black](https://img.shields.io/badge/StyleChecker-black-purple.svg)](https://pypi.org/project/black/)
