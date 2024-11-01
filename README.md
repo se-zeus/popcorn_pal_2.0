@@ -12,6 +12,7 @@
 [![black](https://img.shields.io/badge/StyleChecker-black-purple.svg)](https://pypi.org/project/black/)
 ![33.5 kB](https://img.shields.io/github/languages/code-size/SurajRKU/SE_PROJECT_GRP_12) ![Language](https://img.shields.io/badge/Language-Python-blue)
 [![contributors](https://img.shields.io/github/contributors/SurajRKU/SE_PROJECT_GRP_12)](https://github.com/vbuddar/movie_recommender/graphs/contributors)
+[![contributors](https://img.shields.io/github.com/vbuddar/movie_recommender)](https://github.com/vbuddar/movie_recommender/graphs/contributors)
 [![GitHub release](https://img.shields.io/github/tag/SurajRKU/SE_PROJECT_GRP_12.svg )](https://github.com/vbuddar/movie_recommender/tags)
 [![language_count](https://img.shields.io/github/languages/count/SurajRKU/SE_PROJECT_GRP_12)](https://github.com/vbuddar/movie_recommender)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
