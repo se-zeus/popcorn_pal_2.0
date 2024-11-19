@@ -24,10 +24,10 @@ from flask import session
 app = Flask(__name__)
 
 # Replace with your MongoDB connection string
-uri = "mongodb+srv://seyoubin:seyoubin@csc510.pdrzq.mongodb.net/?retryWrites=true&w=majority&appName=csc510"
+uri = "REPLACE WITH YOUR MongoDB"
 client = MongoClient(uri)
-db = client['test']  # Use your database name
-users_collection = db['users']  # Use your collection name
+db = client['REPLACE WITH YOUR MongoDB']  # Use your database name
+users_collection = db['REPLACE WITH YOUR MongoDB']  # Use your collection name
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
