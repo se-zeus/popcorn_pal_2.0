@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Movie Cinema - Trending</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+</head>
+
+<body id="content" style="font-family: 'Noto Sans JP', sans-serif;">
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('home') }}">The Movie Cinema</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.themoviedb.org/movie">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('trending') }}">Trending</a>
+                    </li>
+                    {% if session.username %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            {{ session.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('my_profile') }}">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="signOut()">Sign Out</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('signin') }}">Sign In</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="alert alert-info" role="alert">
+            <h2 class="text-center">Trending Movies</h2>
+        </div>
+
+        <div class="row">
+            {% if trending_movies %}
+                {% for movie in trending_movies %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ movie.poster_path if movie.poster_path else 'static/R.jpg' }}" 
+                             class="card-img-top" alt="Movie Poster">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ movie.title }}</h5>
+                            <p class="card-text">
+                                <small class="text-muted">Rating: {{ movie.vote_average }}/10</small>
+                            </p>
+                            <a href="/recommend?movie_id={{ movie.id }}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-warning text-center">
+                        No trending movies available at the moment.
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer class="footer mt-5">
+        <br/>
+        <div class="social" style="margin-bottom: 8px">
+            <a class="social-icons" href=""><i class="fa fa-map-marker"></i> &nbsp; NCSU, Raleigh, NC 27695</a>
+            <a class="social-icons" href=""><i class="fa fa-envelope"></i> &nbsp; segrp12fall2023@gmail.com</a>
+            <a class="social-icons" href="https://github.com/SurajRKU/SE_PROJECT_GRP_12" target="_blank">
+                <i class="fa fa-github-alt"></i> &nbsp; github.com/SurajRKU/SE_PROJECT_GRP_12
+            </a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    <script>
+        function signOut() {
+            alert("You are signed out!");
+            window.location.href = "{{ url_for('signout') }}";
+        }
+    </script>
+</body>
+</html>
