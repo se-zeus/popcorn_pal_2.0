@@ -305,13 +305,187 @@ def signout():
         return "An error occurred."
 
 
-@app.route('/myprofile')
+@app.route('/myprofile', methods=['GET', 'POST'])
 def my_profile():
     if 'username' in session:
         username = session['username']
         user = users_collection.find_one({'username': username})
+
+        # Follow user functionality
+        if request.method == 'POST':
+            follow_user = request.form['follow_user']
+            if follow_user:
+                # Fetch the user to follow
+                user_to_follow = users_collection.find_one({'username': follow_user})
+                
+                if user_to_follow:
+                    # Add to current user's following list (if not already followed)
+                    if follow_user not in user.get('following', []):
+                        users_collection.update_one(
+                            {'username': username},
+                            {'$push': {'following': follow_user}}
+                        )
+                        # Add the current user to the followed user's followers list (optional)
+                        users_collection.update_one(
+                            {'username': follow_user},
+                            {'$push': {'followers': username}}
+                        )
+                    else:
+                        pass
+                else:
+                    flash('User not found! Please try again with a valid username.', 'error')
+
+        # After follow, reload the profile page with updated user info
+        user = users_collection.find_one({'username': username})  # Refetch to get updated data
         return render_template('myprofile.html', user=user)
-    return render_template('signin.html')
+
+    return redirect(url_for('signin'))
+
+
+# New route to handle user search dynamically
+@app.route('/search_user', methods=['GET'])
+def search_user():
+    search_query = request.args.get('query', '').lower()
+
+    if search_query:
+        # Perform case-insensitive search for usernames matching the query
+        matched_users = users_collection.find({'username': {'$regex': search_query, '$options': 'i'}})
+        users_list = [{'username': user['username']} for user in matched_users]
+        return jsonify(users_list)
+    return jsonify([])  # Return an empty list if no query is provided
+
+
+
+
+# Function to get movie recommendations based on user's viewing history
+def get_smart_recommendations(user_id):
+    # Retrieve the user's viewing history from the MongoDB collection
+    user_history = history_collection.find({'username': user_id})
+    
+    # Example logic: Collect all genres from the viewing history
+    genres = set()
+    for movie in user_history:
+        genres.update(movie['genre'].split(','))  # Assuming genre is stored as a comma-separated string
+    
+    # Now find movies with similar genres (for demo purposes, we use popular movies API)
+    recommended_movies = []
+    for genre in genres:
+        response = requests.get(MOVIE_API_URL, params={
+            'api_key': API_KEY,
+            'with_genres': genre,
+            'page': 1  # For example, get the first page of results
+        })
+        
+        if response.status_code == 200:
+            data = response.json()
+            for movie in data['results']:
+                recommended_movies.append({
+                    'title': movie['title'],
+                    'poster': f"https://image.tmdb.org/t/p/w500{movie['poster_path']}" if movie['poster_path'] else '',
+                    'genre': genre
+                })
+    
+    # Return a list of recommended movies
+    return recommended_movies
+
+# Route to render personalized recommendations
+@app.route('/recommendations/<user_id>')
+def recommendations(user_id):
+    # Get recommendations for the given user ID
+    personalized_recommendations = get_smart_recommendations(user_id)
+    
+    # Render the recommendations template
+    return render_template('./movie_recommender/recommendations.html', personalized_recommendations=personalized_recommendations)
+
+
+
+
+# Function to fetch trending movies from TMDb
+def get_trending_movies():
+    try:
+        # TMDb API configuration
+        TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
+        API_KEY = '66813434ee0cef76f2119aadee082ae5'  # Using your existing API key
+
+        # Make API request to get trending movies
+        response = requests.get(
+            f"https://api.themoviedb.org/3/trending/movie/day",
+            params={
+                "api_key": API_KEY,
+                "language": "en-US"
+            }
+        )
+        
+        if response.status_code == 200:
+            data = response.json()
+            movies_data = data['results']
+            
+            # Process each movie to add complete poster URLs and other details
+            trending_movies = []
+            for movie in movies_data:
+                movie_info = {
+                    'id': movie.get('id'),
+                    'title': movie.get('title'),
+                    'vote_average': movie.get('vote_average'),
+                    'overview': movie.get('overview'),
+                    'release_date': movie.get('release_date'),
+                    'poster_path': f"{TMDB_IMAGE_BASE_URL}{movie.get('poster_path')}" if movie.get('poster_path') else url_for('static', filename='R.jpg', _external=True)
+                }
+                trending_movies.append(movie_info)
+            
+            return trending_movies
+        else:
+            logging.error(f"Error fetching trending movies: {response.status_code}")
+            return []
+            
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Network error in get_trending_movies: {e}")
+        return []
+    except Exception as e:
+        logging.error(f"Error in get_trending_movies: {e}")
+        return []
+
+@app.route('/trending')
+def trending():
+    # Get trending movies
+    trending_movies = get_trending_movies()
+    
+    # If no movies are returned or there's an error, flash a message
+    if not trending_movies:
+        flash("Sorry, we couldn't fetch the trending movies. Please try again later.", 'error')
+
+    return render_template('trending.html', trending_movies=trending_movies)
+
+
+# Your TMDb API Key
+TMDB_API_KEY = '9142aba24c1ffa938aae70421c9ee637'
+TMDB_BASE_URL = 'https://api.themoviedb.org/3/'
+
+# Function to fetch streaming availability from TMDb
+def get_streaming_availability(movie_id):
+    url = f"{TMDB_BASE_URL}movie/{movie_id}/watch/providers"
+    params = {'api_key': TMDB_API_KEY}
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        return response.json()
+    return {}
+
+# Flask route to render movie details and streaming platforms
+@app.route('/movies/<int:movie_id>/details')
+def movie_details(movie_id):
+    # Simulated movie details
+    movie = {
+        "id": movie_id,
+        "title": "Inception",
+        "description": "A skilled thief is given a chance at redemption if he can successfully perform an inception."
+    }
+
+    # Fetch streaming platform availability
+    streaming_data = get_streaming_availability(movie_id)
+    streaming_platforms = streaming_data.get('results', {}).get('US', {}).get('flatrate', [])
+
+    return render_template('movie_details.html', movie=movie, streaming_platforms=streaming_platforms)
+
 
 if __name__ == "__main__":
     app.secret_key = "super secret key"
