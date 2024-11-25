@@ -160,15 +160,61 @@ class MovieRecommender:
             return "", ""
 
 @app.route("/")
+
 @app.route("/home")
 def home():
     try:
+        # Check if the user is signed in
+        username = session.get('username')
+        
+        # Fetch personalized recommendations if the user is signed in
+        if username:
+            # Get user from MongoDB (or another source)
+            user = users_collection.find_one({'username': username})
+
+            # Fetch user's viewing history from MongoDB
+            viewing_history = history_collection.find({'username': username})
+
+            # Assuming the history contains a list of movie IDs or titles
+            watched_movies = [history['id'] for history in viewing_history]
+
+            # Assuming preferred_genres is a list
+            preferred_genres = user.get('preferred_genres', [])
+
+            # Fetch movie data from a CSV based on preferred genres and viewing history
+            data = pd.read_csv('./data/movies.csv')
+            recommendations = data[data['genre'].isin(preferred_genres)]
+
+            # Filter out movies that the user has already watched
+            recommendations = recommendations[~recommendations['id'].isin(watched_movies)]
+            
+            # Now, create a list of movie recommendations (excluding those already watched)
+            movie_list = []
+            for _, row in recommendations.iterrows():
+                movie = {
+                    'title': row['title'],
+                    'poster': row.get('poster', ''),
+                    'movie_id': row.get('id', '')
+                }
+                movie_list.append(movie)
+
+            personalized_recommendations = movie_list
+        else:
+            personalized_recommendations = []
+
+        # Log the recommendations to see if anything is problematic
+        print(json.dumps(personalized_recommendations, indent=2))
+
+        # Render the home page with personalized recommendations
         suggestions = Utility.get_suggestions()
-        return render_template('home.html', suggestions=suggestions)
+        return render_template('home.html', personalized_recommendations=personalized_recommendations,suggestions=suggestions)
+
     except Exception as e:
         logging.error(f"Error in home route: {e}")
         logging.error(traceback.format_exc())
         return "An error occurred."
+
+
 
 @app.route("/populate-matches", methods=["POST"])
 def populate_matches():
