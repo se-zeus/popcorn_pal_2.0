@@ -14,7 +14,7 @@ from datetime import date, datetime
 import logging
 import traceback
 import urllib.error
-from recommender import MovieRecommender
+from movie_recommender import MovieRecommender
 from flask import Flask, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
 import bcrypt
@@ -34,7 +34,6 @@ history_collection = db['viewing_history']
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
 
 # Loading the trained machine learning models (nlp_model.pkl and tranform.pkl) using pickle.load and tfidf vectorizer from disk for sentiment analysis of the movie reviews
 try:
@@ -216,6 +215,7 @@ def home():
 
 
 
+
 @app.route("/populate-matches", methods=["POST"])
 def populate_matches():
     try:
@@ -236,17 +236,19 @@ def populate_matches():
         logging.error(traceback.format_exc())
         return "An error occurred."
 
-@app.route("/recommend", methods=["POST"])
+@app.route("/recommend", methods=["GET"])  # Change POST to GET
 def recommend():
-    movie_id = request.form.get('movie_id')
+    movie_id = request.args.get('movie_id')  # Use request.args to get query parameters
     try:
         # Fetch recommendations based on the movie_id
-        recommendations = movie_recommender.get_recommendations_by_id(movie_id, top_n=10)
-        return render_template("recommendations.html", recommendations=recommendations)
+        recommendations = movie_recommender.get_recommendations_by_id(id, top_n=10)
+        return render_template("./movie_recommender/recommendations.html", recommendations=recommendations)
     except Exception as e:
         error_traceback = traceback.format_exc()
         logging.error(f"Error fetching recommendations: {error_traceback}")
-        return render_template("error.html", error_message="An error occurred while fetching recommendations.", traceback=error_traceback)
+        return render_template("./movie_recommender/error.html", error_message="An error occurred while fetching recommendations.", traceback=error_traceback)
+
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
