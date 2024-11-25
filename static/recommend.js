@@ -1,5 +1,5 @@
 // Replace 'YOUR_API_KEY' below with your API key retrieved from https://www.themoviedb.org
-var myAPI = ''  // global string to be consistent with future usages elsewhere
+var myAPI = '66813434ee0cef76f2119aadee082ae5'  // global string to be consistent with future usages elsewhere
 $(function() {
   $('#movie_list').css('display','none');
   $('#autoComplete').blur(function() {
@@ -335,22 +335,3 @@ function get_movie_cast(movie_id,my_api_key){
     });
     return {rec_movies:rec_movies,rec_movies_org:rec_movies_org,rec_posters:rec_posters,rec_year:rec_year,rec_vote:rec_vote,rec_ids:rec_ids};
   }
-
-  // recommend.js
-function fetchRecommendations(movieId) {
-    // Use JavaScript to open a new window with the movie ID as a form parameter
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "/recommend";
-    form.target = "_blank"; // Open in a new tab
-
-    const hiddenField = document.createElement("input");
-    hiddenField.type = "hidden";
-    hiddenField.name = "movie_id";
-    hiddenField.value = movieId;
-
-    form.appendChild(hiddenField);
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-}

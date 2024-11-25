@@ -6,8 +6,6 @@ import sys
 import os
 
 app_dir = os.path.dirname(os.path.abspath(__file__))
-print("App directory:")
-print(app_dir)
 code_dir = os.path.dirname(app_dir)
 project_dir = os.path.dirname(code_dir)
 
@@ -15,13 +13,13 @@ project_dir = os.path.dirname(code_dir)
 #anywhere: Searches for the input word within any part of the movie titles and returns a list of matching movie titles. It avoids revisiting titles already found.
 #results: Combines results from both startsWith and anywhere methods and returns a consolidated list of movie titles matching the input word.
 #resultsTop10: Similar to results, but returns only the top 10 matching movie titles
-import pandas as pd
-import os
 
-# Adjusted Search class to accept a DataFrame directly, useful for unit testing.
 class Search:
-    def __init__(self, df):
-        self.df = df
+
+    df = pd.read_csv(project_dir + "/data/movies.csv")
+
+    def __init__(self):
+        pass
 
     def startsWith(self, word):
         n = len(word)
@@ -29,7 +27,7 @@ class Search:
         word = word.lower()
         for x in self.df["title"]:
             curr = x.lower()
-            if curr.startswith(word):
+            if curr[:n] == word:
                 res.append(x)
         return res
 
@@ -45,7 +43,9 @@ class Search:
 
     def results(self, word):
         startsWith = self.startsWith(word)
-        visitedWords = set(startsWith)
+        visitedWords = set()
+        for x in startsWith:
+            visitedWords.add(x)
         anywhere = self.anywhere(word, visitedWords)
         startsWith.extend(anywhere)
         return startsWith

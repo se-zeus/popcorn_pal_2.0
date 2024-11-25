@@ -1,21 +1,31 @@
 # <i>Movie Recommendation System🎥 </i>
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10212033.svg)](https://doi.org/10.5281/zenodo.10212033)
 ![Python](https://img.shields.io/badge/Python-3.6.13-blueviolet)
-![Database](https://img.shields.io/badge/Database-MongoDB-pink)
 ![Framework](https://img.shields.io/badge/Framework-Flask-red)
 ![Frontend](https://img.shields.io/badge/Frontend-HTML/CSS/JS-green)
 ![API](https://img.shields.io/badge/API-TMDB-fcba03)
-[![Coverage Status](https://codecov.io/gh/vbuddar/movie_recommender/graph/badge.svg)](https://codecov.io/gh/vbuddar/movie_recommender)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/vbuddar/movie_recommender/graphs/commit-activity) 
+![Static Badge](https://img.shields.io/badge/Database-MongoDB-pink)
+![Coverage](https://img.shields.io/badge/coverage-97%25-brightgreen)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://gitHub.com/SurajRKU/SE_PROJECT_GRP_12/graphs/commit-activity) 
+[![Contributors Activity](https://img.shields.io/github/commit-activity/m/kgudipe/SE_PROJ)](https://github.com/SurajRKU/SE_PROJECT_GRP_12/pulse) 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
+[![Issues](https://img.shields.io/github/issues/SurajRKU/SE_PROJECT_GRP_12)](https://GitHub.com/SurajRKU/SE_PROJECT_GRP_12/)
+[![Issues Closed](https://img.shields.io/github/issues-closed/SurajRKU/SE_PROJECT_GRP_12)](https://GitHub.com/SurajRKU/SE_PROJECT_GRP_12/)
 [![black](https://img.shields.io/badge/StyleChecker-black-purple.svg)](https://pypi.org/project/black/)
-![33.5 kB](https://img.shields.io/github/languages/code-size/SurajRKU/SE_PROJECT_GRP_12) ![Language](https://img.shields.io/badge/Language-Python-blue)
-[![contributors](https://img.shields.io/github/contributors/SurajRKU/SE_PROJECT_GRP_12)](https://github.com/vbuddar/movie_recommender/graphs/contributors)
-[![GitHub release](https://img.shields.io/github/tag/SurajRKU/SE_PROJECT_GRP_12.svg )](https://github.com/vbuddar/movie_recommender/tags)
-[![language_count](https://img.shields.io/github/languages/count/SurajRKU/SE_PROJECT_GRP_12)](https://github.com/vbuddar/movie_recommender)
+![33.5 kB](https://img.shields.io/github/languages/code-size/SurajRKU/SE_PROJECT_GRP_12) ![Language](https://img.shields.io/badge/Language-Python-blue) 
+![last commit](https://img.shields.io/github/last-commit/SurajRKU/SE_PROJECT_GRP_12)
+[![Repo Size](https://img.shields.io/github/repo-size/SurajRKU/SE_PROJECT_GRP_12?color=brightgreen)](https://github.com/SurajRKU/SE_PROJECT_GRP_12.git)
+[![contributors](https://img.shields.io/github/contributors/SurajRKU/SE_PROJECT_GRP_12)](https://github.com/SurajRKU/SE_PROJECT_GRP_12/graphs/contributors)
+[![GitHub release](https://img.shields.io/github/tag/SurajRKU/SE_PROJECT_GRP_12.svg )](https://github.com/SurajRKU/SE_PROJECT_GRP_12/tags)
+[![file_count](https://img.shields.io/github/directory-file-count/SurajRKU/SE_PROJECT_GRP_12)](https://GitHub.com/SurajRKU/SE_PROJECT_GRP_12/)
+[![language_count](https://img.shields.io/github/languages/count/SurajRKU/SE_PROJECT_GRP_12)](https://GitHub.com/SurajRKU/SE_PROJECT_GRP_12/)
+![GitHub all releases](https://img.shields.io/github/downloads/SurajRKU/SE_PROJECT_GRP_12/total)
+[![Top Language](https://img.shields.io/github/languages/top/SurajRKU/SE_PROJECT_GRP_12)](https://GitHub.com/SurajRKU/SE_PROJECT_GRP_12/)
+![Release](https://img.shields.io/github/v/release/SurajRKU/SE_PROJECT_GRP_12)
+![Build](https://img.shields.io/badge/build-passing-green)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
-![NLP Model](https://img.shields.io/badge/NLP-Transformer-yellowgreen)
 
 This Movie Recommender System is like having a movie buddy who knows your taste super well. It looks at movie info from TMDB and even checks out what people say on IMDB. Then, it uses something called cosine similarity along with the sentiment analysis to match you with movies you'll love.
 
@@ -149,7 +159,7 @@ The project is not currently funded
 
 ## Future Roadmap 🌠
 
-See RoadMap [here](https://github.com/vbuddar/movie_recommender/wiki/roadmap)
+See RoadMap [here](https://github.com/users/SurajRKU/projects/1/views/2)
 
 *For a detailed description of the same, please refer to the comment for each item*
 
@@ -157,20 +167,16 @@ See RoadMap [here](https://github.com/vbuddar/movie_recommender/wiki/roadmap)
 [Raise an issue](https://github.com/SurajRKU/SE_PROJECT_GRP_12/issues/new) on this repository, we would love to look at it ❤️
 
 # Contributors 👥
-<table>
+  <table>
   <tr>
-    <td align="center">
-      <sub><b>Naga Buddarapu</b></sub><br />
-      <a href="mailto:v.naga.buddarapu">v.naga.buddarapu@gmail.com</a>
-    </td>
-    <td align="center">
-      <sub><b>Youbin Kim</b></sub><br />
-      <a href="mailto:se.youbin@gmail.com">se.youbin@gmail.com</a>
-    </td>
+    <td align="center"><a href="https://github.com/prathyu99"><img src="https://avatars.githubusercontent.com/u/33190791?v=4" width="100px;" alt=""/><br /><sub><b>Prathyusha Kodali</b></sub></a></td>
+    <td align="center"><a href="https://github.com/aravinda-1402"><img src="https://avatars.githubusercontent.com/u/71303848?v=4" width="100px;" alt=""/><br /><sub><b>Aravinda Raman Jatavallabha</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/SurajRKU"><img src="https://avatars.githubusercontent.com/u/53537228?v=4" width="100px;" alt=""/><br /><sub><b>Suraj Raghu Kumar</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/yuktasree"><img src="https://avatars.githubusercontent.com/u/64723066?v=4" width="100px;" alt=""/><br /><sub><b>Yuktasree Muppala</b></sub></a><br /></td>
   </tr>
 </table>
 
-**For any further support please email us:** se.youbin@gmail.com
+**For any further support please email us:** segrp12fall2023@gmail.com 
 
 
 

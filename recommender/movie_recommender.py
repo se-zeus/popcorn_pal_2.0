@@ -1,25 +1,8 @@
-"""
-Content-Based Movie Recommendation System using Sentence Transformer Embeddings
--------------------------------------------------------------------------------
-This script uses sentence embeddings generated with a Sentence Transformer model to build a content-based movie recommendation system.
-The recommendation is based on cosine similarity between movie overview embeddings.
-
-Requirements:
-    - pandas
-    - sentence-transformers
-    - torch
-    - sklearn
-
-Dataset:
-    TMDB 5000 Movie Dataset (assumed to be in the same directory as 'tmdb_5000_movies.csv')
-"""
-
 import pandas as pd
 import numpy as np
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
-import traceback
 
 class MovieRecommender:
     """
@@ -42,7 +25,7 @@ class MovieRecommender:
         """
         self.data_path = data_path
         self.embeddings_path = data_path.replace(".csv", "_embeddings.json")
-        print(self.embeddings_path)
+        print(f"Embeddings will be stored at: {self.embeddings_path}")
         self.model = SentenceTransformer(model_name)
         self.movies_df = self._load_data()
         self._generate_embeddings_if_needed()
@@ -86,7 +69,7 @@ class MovieRecommender:
             self.movies_df['embedding'] = [np.array(embed) for embed in embeddings]
             return True
         except (FileNotFoundError, ValueError, json.JSONDecodeError):
-            print("Could not load embeddings from file.", self.embeddings_path)
+            print(f"Could not load embeddings from file: {self.embeddings_path}")
             return False
 
     def get_recommendations_by_id(self, movie_id, top_n=10):
@@ -139,7 +122,7 @@ class MovieRecommender:
 
 if __name__ == "__main__":
     # Example usage
-    recommender = MovieRecommender(data_path="/Users/buddarvx/Desktop/data/tmdb_5000_movies.csv")
+    recommender = MovieRecommender(data_path="./data/tmdb_5000_movies_sample.csv")
     movie_title = "The Dark Knight"
     print(f"Top recommendations for '{movie_title}':")
     recommendations = recommender.get_recommendations(movie_title)
