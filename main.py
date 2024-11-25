@@ -24,13 +24,28 @@ from flask import session
 app = Flask(__name__)
 
 # Replace with your MongoDB connection string
-uri = "REPLACE WITH YOUR MongoDB"
+uri = "mongodb+srv://seyoubin:seyoubin@csc510.pdrzq.mongodb.net/?retryWrites=true&w=majority&appName=csc510"
 client = MongoClient(uri)
-db = client['REPLACE WITH YOUR MongoDB']  # Use your database name
-users_collection = db['REPLACE WITH YOUR MongoDB']  # Use your collection name
+db = client['test']  
+users_collection = db['users']  # Use your collection name
+API_KEY = '66813434ee0cef76f2119aadee082ae5'  
+MOVIE_API_URL = 'https://www.themoviedb.org/movie' 
+history_collection = db['viewing_history']
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+
+# Loading the trained machine learning models (nlp_model.pkl and tranform.pkl) using pickle.load and tfidf vectorizer from disk for sentiment analysis of the movie reviews
+try:
+    filename = 'nlp_model.pkl'
+    clf = pickle.load(open(filename, 'rb'))
+    vectorizer = pickle.load(open('tranform.pkl','rb'))
+    logging.info("Models loaded successfully.")
+except Exception as e:
+    logging.error(f"Error loading models: {e}")
+    logging.error(traceback.format_exc())
+
 
 movie_recommender = MovieRecommender()
 class ConfigManager:
