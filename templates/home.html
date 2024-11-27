@@ -1,276 +1,939 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>The Movie Cinema</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>The Movie Cinema</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <!-- Auto Complete -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+    <!-- Auto Complete -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
 
-  <!-- External CSS -->
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <!-- External CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
 
-  <!-- Bootsrap-->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Bootsrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
-  <script type="text/javascript">
-    var films = {{suggestions|tojson}};
-    $(document).ready(function(){
-      $("#myModal").modal('show');
-    });
-  </script>
+    <script type="text/javascript">
+        var films = {
+            {
+            suggestions | tojson
+        }
+        };
+        $(document).ready(function () {
+            $("#myModal").modal('show');
+        });
+    </script>
 
-  <style>
-      body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-      }
-      .navbar {
-          display: flex;
-          justify-content: flex-end;
-          padding: 10px;
-          background-color: #f0f0f0;
-          position: relative;
-      }
-      .navbar a {
-          text-decoration: none;
-          color: #007BFF;
-          padding: 10px 15px;
-          transition: background-color 0.3s;
-          margin-left: 10px; /* Space between links */
-      }
-      .navbar a:hover {
-          background-color: #007BFF;
-          color: white;
-      }
-      .dropdown {
-          position: relative;
-          display: inline-block;
-          margin-left: 10px; /* Reduced space between greeting and username */
-      }
-      .username {
-          font-size: 22px; /* Increased font size for username */
-          text-decoration: underline; /* Underline for username */
-          cursor: pointer; /* Pointer cursor on hover */
-      }
-      .dropdown-content {
-          display: none;
-          position: absolute;
-          right: 0;
-          background-color: white;
-          min-width: 160px;
-          box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-          z-index: 1;
-      }
-      .dropdown-content a {
-          color: black;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-      }
-      .dropdown-content a:hover {
-          background-color: #f1f1f1;
-      }
-      .dropdown:hover .dropdown-content {
-          display: block; /* Show dropdown on hover */
-      }
-      .greeting {
-          font-size: 22px; /* Same font size as username */
-          margin-right: 5px; /* Reduced space between greeting and username */
-      }
-  </style>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --gradient-1: #2980b9;
+            --gradient-2: #3498db;
+            --dark-bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text: #ffffff;
+            --text-secondary: #8a8d93;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg), var(--card-bg));
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+
+        .navbar {
+            background: rgba(22, 33, 62, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand {
+            color: var(--text) !important;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary) !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent) !important;
+        }
+
+        /* Hero Section */
+
+        .app-title {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 3rem 0;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Search Section */
+        /* .form-group.shadow-textarea {
+            max-width: 800px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .movie.form-control {
+            width: 100% !important;
+            padding: 1.5rem 2rem;
+            font-size: 1.2rem;
+            color: var(--dark-bg) !important;
+            background: rgba(255, 255, 255, 0.9) !important;
+            border: 2px solid transparent !important;
+            border-radius: 50px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .movie.form-control:focus {
+            outline: none;
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 25px rgba(52, 152, 219, 0.3);
+        }
+            */
+        /* Search Button */
+
+        .movie-button {
+            padding: 12px 35px !important;
+            font-size: 1.1rem !important;
+            color: var(--text) !important;
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2)) !important;
+            border: none !important;
+            border-radius: 25px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .movie-button:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .movie-button:disabled {
+            background: linear-gradient(45deg, #666, #999) !important;
+            cursor: not-allowed;
+        }
+
+        /* Recommendations Section */
+
+        .alert-info.in-between {
+            background: transparent;
+            border: none;
+            margin: 4rem 0;
+        }
+
+        .alert-info h3 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text);
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .alert-success {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: none !important;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Movie Cards */
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(52, 152, 219, 0.2);
+        }
+
+        .card-img-top {
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            background: linear-gradient(to top, var(--card-bg), transparent);
+        }
+
+        .card-title {
+            color: var(--text);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Modal Styling */
+
+        .modal-content {
+            background: var(--card-bg);
+            border: none;
+            border-radius: 15px;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2)) !important;
+        }
+
+        .modal-body {
+            color: var(--text);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border);
+        }
+
+        /* Footer */
+
+        .footer {
+            background: rgba(22, 33, 62, 0.95);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-icons {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            margin: 0 1rem;
+        }
+
+        .social-icons:hover {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Error Message */
+
+        .fail {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 2rem auto;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .fail h3 {
+            color: var(--text);
+            margin: 0;
+        }
+
+        /* Responsive Design */
+
+        @media (max-width: 768px) {
+            .app-title {
+                font-size: 2.5rem;
+            }
+
+            .form-group.shadow-textarea {
+                width: 90%;
+            }
+
+            .movie.form-control {
+                font-size: 1rem;
+                padding: 1.2rem 1.5rem;
+            }
+
+            .card-img-top {
+                height: 300px;
+            }
+        }
+
+        .recommendations {
+            padding: 4rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+
+        .header-line {
+            height: 2px;
+            width: 100px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 0 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .movie-card {
+            position: relative;
+            height: 400px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .movie-card:hover .card-inner {
+            transform: translateY(-10px);
+        }
+
+        .card-front {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .movie-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover .movie-overlay {
+            transform: translateY(0);
+        }
+
+        .movie-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .movie-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffd700;
+        }
+
+        .card-details {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .movie-card:hover .card-details {
+            opacity: 1;
+        }
+
+        .view-details {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, var(--gradient-1), var(--gradient-2));
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .view-details:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .no-recommendations {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .no-recommendations i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .no-recommendations h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .categories-section {
+            padding: 4rem 0;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .genre-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .genre-title h2 {
+            font-size: 3rem;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        .genre-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .genre-card {
+            position: relative;
+            height: 180px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .genre-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .genre-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .genre-content {
+            position: relative;
+            z-index: 2;
+            padding: 1.5rem;
+            color: #ffffff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .genre-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
+                0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .genre-content span {
+            font-size: 1rem;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            opacity: 0.9;
+        }
+
+        /* Hover Effects */
+        .genre-card:hover::before {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .genre-card:hover .genre-content h3 {
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9),
+                0 0 15px rgba(255, 255, 255, 0.7);
+        }
+
+        /* Genre-specific backgrounds */
+        .genre-action {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/action.jpg') center/cover;
+        }
+
+        .genre-drama {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/drama.jpg') center/cover;
+        }
+
+        .genre-comedy {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/comedy.jpg') center/cover;
+        }
+
+        .genre-scifi {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/scifi.jpg') center/cover;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .genre-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .genre-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .genre-content h3 {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Responsive Design */
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .header-line {
+                width: 50px;
+            }
+
+            .movie-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .movie-card {
+                height: 300px;
+            }
+        }
+
+        .form-group.shadow-textarea {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .movie.form-control {
+            width: 100% !important;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .movie.form-control:focus {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive adjustments */
+
+        @media (max-width: 768px) {
+            .form-group.shadow-textarea {
+                padding: 0 15px;
+            }
+
+            .movie.form-control {
+                width: 90% !important;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body id="content" style="font-family: 'Noto Sans JP', sans-serif;">
-  <!-- Bootstrap Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{{ url_for('home') }}">The Movie Cinema</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="{{ url_for('home') }}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.themoviedb.org/movie">Movies</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('trending') }}">Trending</a>
-        </li>        
-          {% if session.username %}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ session.username }}
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ url_for('my_profile') }}">My Profile</a></li>
-                <li><a class="dropdown-item" href="#" onclick="signOut()">Sign Out</a></li>
-              </ul>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('signin') }}">Sign In</a>
-            </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
-  <div class="navbar">
-      {% if session.username %}
-          <span class="greeting">Hello,</span>
-          <div class="dropdown">
-              <span class="username">{{ session.username }}</span>
-              <div class="dropdown-content">
-                  <a href="{{ url_for('my_profile') }}">My Profile</a>
-                  <a href="#" onclick="signOut()">Sign Out</a>
-              </div>
-          </div>
-      {% else %}
-          <a href="{{ url_for('signin') }}">Sign In</a>
-      {% endif %}
-  </div>
-  <script>
-    function signOut() {
-        // Show the alert message
-        alert("You are signed out!");
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('home') }}">The Movie Cinema</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.themoviedb.org/movie">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('trending') }}">Trending</a>
+                    </li>
+                    {% if session.username %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ session.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('my_profile') }}">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="signOut()">Sign Out</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('signin') }}">Sign In</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        // Redirect to the signout route after a delay
-        window.location.href = "{{ url_for('signout') }}";
-    }
-  </script>
+    <!-- <div class="navbar">
+        {% if session.username %}
+        <span class="greeting">Hello,</span>
+        <div class="dropdown">
+            <span class="username">{{ session.username }}</span>
+            <div class="dropdown-content">
+                <a href="{{ url_for('my_profile') }}">My Profile</a>
+                <a href="#" onclick="signOut()">Sign Out</a>
+            </div>
+        </div>
+        {% else %}
+        <a href="{{ url_for('signin') }}">Sign In</a> {% endif %}
+    </div> -->
+    <script>
+        function signOut() {
+            // Show the alert message
+            alert("You are signed out!");
 
-<div class="body-content">
-	<div class="ml-container" style="display: block;">
-		<!-- <a href="https://github.com/kishan0725/The-Movie-Cinema" target="_blank" class="github-corner" title="View source on GitHub">
-		      <svg data-toggle="tooltip"
-		      data-placement="left" width="80" height="80" viewBox="0 0 250 250"
-			style="fill:#e50914; color:#fff; position: fixed;z-index:100; top: 0; border: 0; right: 0;" aria-hidden="true">
-			<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-			<path
-			  d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-			  fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-			<path
-			  d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-			  fill="currentColor" class="octo-body"></path>
-		      </svg>
-		    </a> -->
-    <center><h1 class="app-title">The Movie Cinema</h1></center>
-    <div class="form-group shadow-textarea" style="margin-top: 30px;text-align: center;color: white;">
-        <input type="text" name="movie" class="movie form-control" id="autoComplete" autocomplete="off" placeholder="Enter the Movie Name" style="background-color: #ffffff;border-color:#ffffff;width: 60%;color: #181818" required="required" />
-        <br>
-    </div>
+            // Redirect to the signout route after a delay
+            window.location.href = "{{ url_for('signout') }}";
+        }
+    </script>
 
-    <div class="form-group" style="text-align: center;">
-      <button class="btn btn-primary btn-block movie-button" style="background-color: #00BFFF;text-align: center;border-color: #00BFFF;width:120px; opacity: 100%;" disabled="true" >Enter</button><br><br>
-    </div>
-	</div>
+    <div class="body-content">
+        <div class="ml-container" style="display: block;">
 
-  <div id="loader" class="text-center">
-  </div>
-  
-  <div class="fail">
-    <center><h3>Sorry! The movie you requested is not in our database. 
-    Please check the spelling or try with other movies!</h3></center>
-  </div>
+            <center>
+                <h1 class="app-title">The Movie Cinema</h1>
+            </center>
+            <div class="form-group shadow-textarea" style="margin-top: 30px;text-align: center;color: white;">
+                <input type="text" name="movie" class="movie form-control" id="autoComplete" autocomplete="off"
+                    placeholder="Enter the Movie Name"
+                    style="background-color: #ffffff;border-color:#ffffff;width: 60%;color: #181818"
+                    required="required" />
+                <br>
+            </div>
 
-	<div class="results">
-    <center>
-      <h2 id="name" class="text-uppercase"></h2>
-    </center>
-	</div>
-	
-  <br> 
-  <br><br><br><br><br>
-  <div class="alert alert-info in-between" role="alert" style="align-content: center;">
-  <marquee><h3>Recommended for You</h3></marquee>
-  </div>
+            <div class="form-group" style="text-align: center;">
+                <button class="btn btn-primary btn-block movie-button"
+                    style="background-color: #00BFFF;text-align: center;border-color: #00BFFF;width:120px; opacity: 100%;"
+                    disabled="true">Enter</button><br><br>
+            </div>
+        </div>
 
-  <br>
-<div class="alert alert-success text-center mt-4" role="alert">
-  <div class="row">
-    {% if personalized_recommendations %}
-        {% for movie in personalized_recommendations %}
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="static/R.jpg" class="card-img-top" alt="Movie Poster">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ movie['title'] }}</h5>
-                        <a href="/recommend?movie_id={{ movie['id'] }}" class="btn btn-primary">View Details</a>
+        <div id="loader" class="text-center">
+        </div>
+
+        <div class="fail">
+            <center>
+                <h3>Sorry! The movie you requested is not in our database. Please check the spelling or try with other
+                    movies!
+                </h3>
+            </center>
+        </div>
+
+        <div class="results">
+            <center>
+                <h2 id="name" class="text-uppercase"></h2>
+            </center>
+        </div>
+
+       
+
+        <section class="recommendations">
+            <div class="section-header">
+                <div class="header-line"></div>
+                <h2 class="section-title">Explore Gerne</h2>
+                <div class="header-line"></div>
+            </div>
+            
+            <div class="genre-grid">
+                <div class="genre-card genre-action">
+                    <div class="genre-content">
+                        <h3>Action</h3>
+                        <span>100+ Movies</span>
+                    </div>
+                </div>
+                
+                <div class="genre-card genre-drama">
+                    <div class="genre-content">
+                        <h3>Drama</h3>
+                        <span>150+ Movies</span>
+                    </div>
+                </div>
+                
+                <div class="genre-card genre-comedy">
+                    <div class="genre-content">
+                        <h3>Comedy</h3>
+                        <span>120+ Movies</span>
+                    </div>
+                </div>
+                
+                <div class="genre-card genre-scifi">
+                    <div class="genre-content">
+                        <h3>Sci-Fi</h3>
+                        <span>80+ Movies</span>
                     </div>
                 </div>
             </div>
-        {% endfor %}
-    {% else %}
-        <p>No personalized recommendations available. Start watching movies to get recommendations!</p>
-    {% endif %}
-</div>
-</div>
+        </section>
+
+       
 
 
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <!-- Header -->
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title text-center" id="exampleModalLabel" style="display: flex;text-align: center;">Movie Search Tips</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <!-- Body -->
-      <div class="modal-body">
-        <p class="mb-3">
-          Having trouble finding the movie you want? Don’t worry! Just type the name of the movie and hit <strong>Enter</strong>.
-          The system will do its best to match your input, even if there are minor typos.
-        </p>
-        <hr>
-        <p>
-          <strong>New Tip:</strong> Use specific keywords to narrow down the results. For example, instead of typing "Avengers," try
-          "Avengers: Endgame" for more precise results.
-        </p>
-      <!-- Footer -->
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">Thank You!</button>
-      </div>
-    </div>
-  </div>
-</div>
+        <section class="recommendations">
+            <div class="section-header">
+                <div class="header-line"></div>
+                <h2 class="section-title">Recommended For You</h2>
+                <div class="header-line"></div>
+            </div>
 
-	
-	<footer class="footer">
-    <br/> 
-    <div class="social" style="margin-bottom: 8px">
-      <a class="social-icons" href="" target="_blank"><i class="fa fa-map-marker" ></i> &nbsp; NCSU, Raleigh, NC 27695</a>
-      <a class="social-icons" href="" target="_blank"><i class="fa fa-envelope" ></i> &nbsp; segrp12fall2023@gmail.com</a>
-      <a class="social-icons" href="https://github.com/SurajRKU/SE_PROJECT_GRP_12" target="_blank"><i class="fa fa-github-alt"></i> &nbsp; github.com/SurajRKU/SE_PROJECT_GRP_12</a>
-    </div>
-  </footer>
-	</div>
-	
-	<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
-  <script type="text/javascript" src="{{url_for('static', filename='autocomplete.js')}}"></script>
-  <script type="text/javascript" src="{{url_for('static', filename='recommend.js')}}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <div class="recommendations-container">
+                {% if personalized_recommendations %}
+                <div class="movie-grid">
+                    {% for movie in personalized_recommendations %}
+                    <div class="movie-card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="static/R.jpg" alt="{{ movie['title'] }}">
+                                <div class="movie-overlay">
+                                    <div class="movie-info">
+                                        <h3>{{ movie['title'] }}</h3>
+                                        <div class="movie-rating">
+                                            <i class="fa fa-star"></i>
+                                            <span>{{ movie.get('rating', 'N/A') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-details">
+                                <a href="/recommend?movie_id={{ movie['id'] }}" class="view-details">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-recommendations">
+                    <i class="fa fa-film"></i>
+                    <h3>No Recommendations Yet</h3>
+                    <p>Start watching movies to get personalized recommendations!</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- <br>
+        <br><br><br><br><br>
+        <div class="alert alert-info in-between" role="alert" style="align-content: center;">
+            <marquee>
+                <h3>Recommended for You</h3>
+            </marquee>
+        </div>
+
+        <br>
+        <div class="alert alert-success text-center mt-4" role="alert">
+            <div class="row">
+                {% if personalized_recommendations %} {% for movie in personalized_recommendations %}
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="static/R.jpg" class="card-img-top" alt="Movie Poster">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ movie['title'] }}</h5>
+                            <a href="/recommend?movie_id={{ movie['id'] }}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %} {% else %}
+                <p>No personalized recommendations available. Start watching movies to get recommendations!</p>
+                {% endif %}
+            </div>
+        </div> -->
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <!-- Header -->
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title text-center" id="exampleModalLabel"
+                            style="display: flex;text-align: center;">Movie Search Tips</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Body -->
+                    <div class="modal-body">
+                        <p class="mb-3">
+                            Having trouble finding the movie you want? Don’t worry! Just type the name of the movie and
+                            hit <strong>Enter</strong>. The system will do its best to match your input, even if there
+                            are minor typos.
+                        </p>
+                        <hr>
+                        <p>
+                            <strong>New Tip:</strong> Use specific keywords to narrow down the results. For example,
+                            instead of typing "Avengers," try "Avengers: Endgame" for more precise results.
+                        </p>
+                        <!-- Footer -->
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">Thank
+                                You!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <footer class="footer">
+                <br />
+                <div class="social" style="margin-bottom: 8px">
+                    <a class="social-icons" href="" target="_blank"><i class="fa fa-map-marker"></i> &nbsp; NCSU,
+                        Raleigh, NC 27695</a>
+                    <a class="social-icons" href="" target="_blank"><i class="fa fa-envelope"></i> &nbsp;
+                        segrp12fall2023@gmail.com</a>
+                    <a class="social-icons" href="https://github.com/SurajRKU/SE_PROJECT_GRP_12" target="_blank"><i
+                            class="fa fa-github-alt"></i> &nbsp; github.com/SurajRKU/SE_PROJECT_GRP_12</a>
+                </div>
+            </footer>
+        </div>
+        <script>
+            document.getElementById('autoComplete').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const movieName = this.value.trim();
+                    if (movieName) {
+                        // Use your existing search functionality
+                        const movieButton = document.querySelector('.movie-button');
+                        movieButton.click(); // Trigger the button click
+                    }
+                }
+            });
+        </script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='autocomplete.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='recommend.js')}}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 
 </body>
+
 </html>
