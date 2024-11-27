@@ -12,7 +12,7 @@ project_dir = os.path.dirname(code_dir)
 #startsWith: Takes a word as input and returns a list of movie titles that start with that word.
 #anywhere: Searches for the input word within any part of the movie titles and returns a list of matching movie titles. It avoids revisiting titles already found.
 #results: Combines results from both startsWith and anywhere methods and returns a consolidated list of movie titles matching the input word.
-#resultsTop10: Similar to results, but returns only the top 10 matching movie titles
+#resultsTop10: Similar to results, but returns only the top 10 matching movie titles 
 
 class Search:
 

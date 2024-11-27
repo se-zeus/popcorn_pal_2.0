@@ -52,4 +52,4 @@ The base URL for the API is: `http://localhost:5000/`
     
 ### Response:
  - **Status Code:** 200 OK
- - **Content Type:** text/html
+ - **Content Type:** text/html 
