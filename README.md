@@ -119,23 +119,22 @@ Some dependencies may not be compatible with Python 3.6. It is recommended to cr
 
 ## 📷 **Screenshots**  
 ### **Home Page**
-*(Insert screenshot of the updated home page)*
+![image](https://github.com/user-attachments/assets/b842755a-43a6-476b-abcf-e3932cee04df)
 
 ### **Trending Movies Section**
-*(Insert screenshot of trending movies page)*
-
-### **Movie Details**
-*(Insert screenshot of movie details page)*
+![Screen recording 1 (online-video-cutter com)](https://github.com/user-attachments/assets/a1982f89-66b8-4242-bd95-deaca7970ced)
 
 ### **Recommendations**
-*(Insert screenshot of recommendations page)*
+![image](https://github.com/user-attachments/assets/381b11e0-aca9-40d7-8ee2-38e7486524b5)
 
-### **Trailer Interaction**
-*(Insert GIF of interactive trailer feature)*
+### **User Following**
+![Screenshot 2024-11-26 221148](https://github.com/user-attachments/assets/84bf7f5d-eb3e-4844-b2ae-3f808bf2c224)
+
 
 ---
-## ▶️ **Demo Video**  
-[![Demo Video](https://img.youtube.com/vi/2FKQk8rXWFg/0.jpg)](https://www.youtube.com/watch?v=2FKQk8rXWFg)
+## ▶️ **[Demo Video](https://www.youtube.com/watch?v=2FKQk8rXWFg)**  
+[![Demo Video](https://github.com/user-attachments/assets/bb87b86a-1337-4582-a8b6-331632eac4c0)](https://www.youtube.com/watch?v=2FKQk8rXWFg)
+
 
 ## 📊 **Datasets Used**
 
