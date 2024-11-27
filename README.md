@@ -120,7 +120,7 @@ Please find our Youtube video [here](https://youtu.be/275Ibxyu2AA)
 
 
 ### Rubric 📝
-Refer to Rubric file [here](https://github.com/SurajRKU/SE_PROJECT_GRP_12/blob/main/project3/README.md)
+Refer to Rubric file [here](https://www.notion.so/CSC-510-Software-Engineering-Project-3-facc9bc431534e43a88a1c0c3eac9ed4?pvs=4)
 
 ### Documentation 📚
 Refer to Wiki page [here](https://github.com/SurajRKU/SE_PROJECT_GRP_12/blob/main/API_Documentation.md)
