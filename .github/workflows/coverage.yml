@@ -36,4 +36,6 @@ jobs:
           if [[ $(coverage report | grep TOTAL | awk '{print $4}' | sed 's/%//') -lt 96 ]]; then
             echo "Coverage is less than 96%"
             exit 1
+          else
+            echo "Coverage is 96% or higher"
           fi
