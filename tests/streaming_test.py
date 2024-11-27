@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from flask import Flask
-from your_flask_app import app, get_streaming_availability  # Replace with the actual filename
+from main import app, get_streaming_availability  # Replace with the actual filename
 
 class TestMovieDetails(unittest.TestCase):
 
@@ -33,7 +33,7 @@ class TestMovieDetails(unittest.TestCase):
     def test_movie_details_route(self):
         with app.test_client() as client:
             # Mock the get_streaming_availability function
-            with patch('your_flask_app.get_streaming_availability') as mock_get_streaming_availability:
+            with patch('app.get_streaming_availability') as mock_get_streaming_availability:
                 mock_get_streaming_availability.return_value = {
                     'results': {
                         'US': {

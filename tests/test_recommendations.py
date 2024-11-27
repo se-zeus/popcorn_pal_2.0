@@ -33,7 +33,7 @@ class TestRecommendations(unittest.TestCase):
         # Use Flask's test client to simulate a request
         with app.test_client() as client:
             # Mock the function to return a static list
-            with patch('your_flask_app.get_smart_recommendations') as mock_recommendations:
+            with patch('app.get_smart_recommendations') as mock_recommendations:
                 mock_recommendations.return_value = [
                     {'title': 'Mocked Movie 1', 'poster': 'https://image.tmdb.org/t/path.jpg', 'genre': 'Action'},
                     {'title': 'Mocked Movie 2', 'poster': 'https://image.tmdb.org/t/path2.jpg', 'genre': 'Drama'}

@@ -1,11 +1,11 @@
 import unittest
 from unittest.mock import patch
 from flask import Flask
-from your_flask_app import app, get_trending_movies  # Replace with the actual filename
+from flask import app, get_trending_movies  # Replace with the actual filename
 
 class TestTrendingMovies(unittest.TestCase):
 
-    @patch('your_flask_app.requests.get')
+    @patch('app.requests.get')
     def test_get_trending_movies_success(self, mock_get):
         # Mock a successful API response
         mock_get.return_value.status_code = 200
@@ -16,7 +16,7 @@ class TestTrendingMovies(unittest.TestCase):
         self.assertEqual(len(trending_movies), 2)
         self.assertEqual(trending_movies[0]['title'], 'Movie 1')
 
-    @patch('your_flask_app.requests.get')
+    @patch('app.requests.get')
     def test_get_trending_movies_error(self, mock_get):
         # Mock an API error
         mock_get.side_effect = requests.exceptions.RequestException("API error")
@@ -26,7 +26,7 @@ class TestTrendingMovies(unittest.TestCase):
     def test_trending_route(self):
         with app.test_client() as client:
             # Mock the function
-            with patch('your_flask_app.get_trending_movies') as mock_get_trending_movies:
+            with patch('app.get_trending_movies') as mock_get_trending_movies:
                 mock_get_trending_movies.return_value = [
                     {'title': 'Mocked Movie 1'}, {'title': 'Mocked Movie 2'}
                 ]
@@ -37,7 +37,7 @@ class TestTrendingMovies(unittest.TestCase):
                 self.assertIn(b'Mocked Movie 2', response.data)
 
             # Test error scenario
-            with patch('your_flask_app.get_trending_movies') as mock_get_trending_movies:
+            with patch('app.get_trending_movies') as mock_get_trending_movies:
                 mock_get_trending_movies.return_value = []
                 response = client.get('/trending')
                 self.assertEqual(response.status_code, 200)
