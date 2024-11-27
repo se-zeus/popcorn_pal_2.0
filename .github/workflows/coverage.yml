@@ -26,7 +26,36 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
-      - name: Check coverage
+      - name: Run tests
         run: |
-          echo "Coverage is 96%"
-          exit 0
+          pytest --cov=./ --cov-report=xml
+
+      - name: Calculate coverage
+        id: coverage
+        run: |
+          # Fetch the coverage percentage from the report
+          COVERAGE=$(coverage report | grep TOTAL | awk '{print $4}' | sed 's/%//')
+          echo "Current coverage is $COVERAGE%"
+
+          # Set the target coverage to 96%
+          TARGET_COVERAGE=96
+
+          # Check if the current coverage is at least the target coverage
+          if [ $COVERAGE -ge $TARGET_COVERAGE ]; then
+            echo "::set-output name=result::pass"
+          else
+            echo "::set-output name=result::fail"
+          fi
+
+      - name: Check coverage
+        if: steps.coverage.outputs.result == 'fail'
+        run: |
+          echo "Coverage is less than 96%. Current coverage: ${{ steps.coverage.outputs.coverage }}%"
+          exit 1
+        
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          env_vars: OS,PYTHON
+          fail_ci_if_error: true
