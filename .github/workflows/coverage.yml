@@ -26,44 +26,20 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
 
-      - name: Simulate running tests
-        run: |
-          ---------- coverage: platform linux, python 3.12.7-final-0 -----------
-          Name                               Stmts   Miss  Cover   Missing
-          ----------------------------------------------------------------
-          item_based.py                         22     22    60%   1-45
-          main.py                              307    291    95%   18-494
-          movie_recommender.py                  64     61    85%   4-133
-          plot_based_recommendation.py          29     29    90%   1-38
-          recommender/movie_recommender.py      64     64    90%   1-133
-          search.py                             41     32    22%   21-58
-          tests/streaming_test.py               26     22    95%   6-55
-          tests/test_main.py                    16     13    99%   4-23
-          tests/test_movie_recommender.py      273     10     2%   6-301
-          tests/test_recommendations.py         24     20    67%   6-51
-          tests/test_search.py                  25     22    92%   5-32
-          tests/trending_test.py                32     28    92%   6-47
-          ----------------------------------------------------------------
-          TOTAL                                1585   173     96%
-          
-          # Save the coverage report to a file
-          mkdir -p coverage
-          echo "Coverage XML written to file coverage/coverage.xml" > coverage/coverage.xml
-
       - name: Check coverage
         run: |
           # Check if the coverage is at least 96%
-          COVERAGE=$(cat coverage/coverage.xml | grep -o -E 'line-rate="[^"]+"' | head -n 1 | sed 's/line-rate=//;s/"//')
-          if (( $(echo "$COVERAGE >= 0.96" | bc -l) )); then
+          COVERAGE=$(coverage report --skip-covered --show-missing | grep TOTAL | awk '{print $4}' | sed 's/%//')
+          if (( $(echo "$COVERAGE >= 96" | bc -l) )); then
             echo "Coverage is 96% or higher"
           else
-            echo "Coverage is less than 96%. Current coverage: $COVERAGE"
+            echo "Coverage is less than 96%. Current coverage: $COVERAGE%"
             exit 1
           fi
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         with:
-          files: ./coverage/coverage.xml
+          files: ./coverage.xml
           env_vars: OS,PYTHON
           fail_ci_if_error: true
