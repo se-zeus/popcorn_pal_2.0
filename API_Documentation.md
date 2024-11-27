@@ -1,101 +1,121 @@
-# Movie Recommendation API Documentation
+# **Movie Recommendation API Documentation**
 
-## Introduction 
+## **Introduction**
 
-The Movie Recommendation API provides endpoints for retrieving movie recommendations based on user input. It utilizes a machine learning model to generate recommendations and includes features such as autocomplete suggestions and detailed movie information.
+The **Movie Recommendation API** provides endpoints to deliver movie recommendations based on user input. It leverages machine learning models to suggest personalized recommendations and includes features like autocomplete for movie titles and detailed movie metadata.
 
-## Base URL
+---
 
-The base URL for the API is: `http://localhost:5000/`
+## **Base URL**
 
-## Endpoints
+The API runs locally and can be accessed via:  
+`http://localhost:5000/`
 
-### 1. Home Page - Get Autocomplete Suggestions
+---
 
-- **Endpoint:** `GET /home`
-- **Description:** Returns a list of movie title suggestions for autocomplete.
-- **Request:** `GET /home`
-- **Response:**
+## **Endpoints**
+
+### **1. Home Page - Get Autocomplete Suggestions**
+
+- **Endpoint:** `GET /home`  
+- **Description:** Provides a list of movie title suggestions for autocomplete functionality.  
+- **Request Example:**  
+  ```http
+  GET /home
+  ```
+- **Response Example:**  
   ```json
   {
-    "suggestions": ["Movie 1", "Movie 2", "Movie 3"]
+    "suggestions": ["Inception", "Interstellar", "Iron Man"]
   }
+  ```
 
-### 2. Populate Movie Matches
+---
 
-- **Endpoint:** `POST /populate-matches`
-- **Description:** Populates movie matches based on user-provided movie details.
-- **Request:** `POST /populate-matches`
-- **Body Example:**
+### **2. Populate Movie Matches**
+
+- **Endpoint:** `POST /populate-matches`  
+- **Description:** Populates a set of movie matches based on a list of user-provided movie details.  
+- **Request Example:**  
   ```json
   {
     "movies_list": [
       {
-        "poster_path": "/path/to/poster",
-        "title": "Movie Title",
-        "original_title": "Original Title",
-        "vote_average": 8.5,
-        "release_date": "2022-01-01",
-        "id": 123
-      },
+        "poster_path": "/path/to/poster.jpg",
+        "title": "Inception",
+        "original_title": "Inception",
+        "vote_average": 8.8,
+        "release_date": "2010-07-16",
+        "id": 27205
+      }
     ]
   }
-- **Response:**
-  - **Status Code:** 200 OK
-  - **Content Type:** text/html
+  ```
+- **Response:**  
+  - **Status Code:** `200 OK`  
+  - **Content Type:** `text/html`
 
-### 3. Get Movie Recommendations
+---
 
-- **Endpoint:** `POST /recommend`
-- **Description:** Generates movie recommendations based on user input and provides detailed movie information.
-- **Request:** `POST /recommend`
-- **Form Data:**
-  - title: Movie title
-  - cast_ids: Comma-separated list of cast IDs
-  - cast_names: Comma-separated list of cast names
-  - cast_chars: Comma-separated list of cast characters
-  - ... (other form data fields)
-- **Response:** 
-  - **Status Code:** 200 OK
-  - **Content Type:** text/html
+### **3. Get Movie Recommendations**
 
-# search.py Code Documentation
+- **Endpoint:** `POST /recommend`  
+- **Description:** Generates personalized movie recommendations based on the user's preferences and provided input.  
+- **Request Example:**  
+  ```http
+  POST /recommend
+  ```
+  **Form Data:**  
+  ```plaintext
+  title=Inception
+  cast_ids=123,456
+  cast_names=Leonardo DiCaprio, Joseph Gordon-Levitt
+  cast_chars=Dom Cobb, Arthur
+  ...
+  ```
+- **Response:**  
+  - **Status Code:** `200 OK`  
+  - **Content Type:** `text/html`
 
-This documentation provides details about the `Search` class in the `search.py` file.
+---
 
-## Class: Search
+## **`search.py` Code Documentation**
 
-The `Search` class in `search.py` contains the following methods:
+The `search.py` file contains the **`Search`** class, which implements the logic for movie search and autocomplete functionality.
 
-### 1. startsWith(self, word)
+### **Class: `Search`**
 
-**Input:**
-- `word`: It is a string where users can write the name of the movie.
+#### **1. `startsWith(self, word)`**
+- **Input:**  
+  - `word`: A string containing the initial part of the movie title.  
+- **Output:**  
+  - Returns a list of movies whose titles start with the input word.  
 
-**Output:**
-- Returns a list of movies that start with the given word.
+#### **2. `anywhere(self, word, visitedWords)`**
+- **Input:**  
+  - `word`: A string containing any part of the movie title.  
+  - `visitedWords`: A set of movie titles to exclude from the output.  
+- **Output:**  
+  - Returns a list of movies where the input word appears anywhere in the title (excluding those in `visitedWords`).  
 
-### 2. anywhere(self, word, visitedWords)
+#### **3. `results(self, word)`**
+- **Input:**  
+  - `word`: A string containing any part of the movie title.  
+- **Output:**  
+  - Combines results from `startsWith` and `anywhere` methods. Returns a prioritized list with movies starting with the input word appearing first.  
 
-**Input:**
-- `word`: It is a string where users can write the name of the movie.
-- `visitedWords`: A set (unordered hash-map) of movies that should not be part of the output.
+#### **4. `resultsTop10(self, word)`**
+- **Input:**  
+  - `word`: A string containing any part of the movie title.  
+- **Output:**  
+  - Retrieves the top 10 results from the `results` method.  
 
-**Output:**
-- Returns a list of movies that have the input word anywhere in its title.
+---
 
-### 3. results(self, word)
+## **Additional Notes**
 
-**Input:**
-- `word`: It is a string where users can write the name of the movie.
+- **Dependencies:**  
+  Ensure you have the required dependencies installed, and use **Python 3.10** to avoid compatibility issues with older dependencies (e.g., `transformers`, `tokenizers`).
 
-**Output:**
-- Returns a list of movies where the first few movies will be the ones that start with the input word, followed by the movies that have the input word anywhere in its title.
-
-### 4. resultsTop10(self, word)
-
-**Input:**
-- `word`: It is a string where users can write the name of the movie.
-
-**Output:**
-- Returns the first 10 results from the method `results`.
+- **Anaconda Setup:**  
+  The project requires Anaconda for environment management. Refer to the [Contributing Guidelines](https://github.com/se-zeus/popcorn_pal_2.0/blob/master/CONTRIBUTING.md) for detailed setup instructions.
