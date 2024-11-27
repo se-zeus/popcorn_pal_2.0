@@ -1,4 +1,4 @@
-# Contributing to The Movie Recommendation System!!
+# Contributing to The Movie Recommendation System!! 
 
 The following is a set of guidelines for contributing to **The Movie Recommendation System**. We are open to suggestions to enhance our project.
 

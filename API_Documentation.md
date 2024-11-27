@@ -1,6 +1,6 @@
 # Movie Recommendation API Documentation
 
-## Introduction
+## Introduction 
 
 The Movie Recommendation API provides endpoints for retrieving movie recommendations based on user input. It utilizes a machine learning model to generate recommendations and includes features such as autocomplete suggestions and detailed movie information.
 

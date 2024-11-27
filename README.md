@@ -37,7 +37,7 @@ Let us say you're browsing through our updated system. You select a recent movie
 
 
 ### Architecture of the Recommendation System 🏗️
-![Alt Text](Recommendation_Architecture.png)
+![Alt Text](RecommendationArchitecture.png)
 
 
 ### What's New? 🤔
