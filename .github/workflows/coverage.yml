@@ -1,0 +1,39 @@
+name: Test and Upload Coverage
+
+on:
+  push:           # Triggers on push to any branch/feature
+  pull_request:   # Triggers on pull requests to any branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install coverage codecov
+          pip install pytest pytest-cov  # Ensure pytest and pytest-cov are installed
+
+      # Add PYTHONPATH to allow imports from the project directory
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
+
+      - name: Run tests with coverage
+        run: |
+          pytest --cov --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+
