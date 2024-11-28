@@ -77,7 +77,7 @@ https://github.com/SurajRKU/SE_PROJECT_GRP_12/assets/64723066/08a9d643-4ad3-4fd8
 
 
 ### Video ▶️ 
-Please find our Youtube video [here](https://youtu.be/275Ibxyu2AA)
+Please find our Youtube video [here](https://www.youtube.com/watch?v=2FKQk8rXWFg)
 
 
 
