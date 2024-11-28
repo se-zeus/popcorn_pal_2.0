@@ -1,6 +1,6 @@
 # <i>Movie Recommendation System🎥 </i>
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10212033.svg)](https://doi.org/10.5281/zenodo.10212033)
+[![DOI](https://zenodo.org/badge/892202217.svg)](https://doi.org/10.5281/zenodo.14238146)
 ![Python](https://img.shields.io/badge/Python-3.6.13-blueviolet)
 ![Framework](https://img.shields.io/badge/Framework-Flask-red)
 ![Frontend](https://img.shields.io/badge/Frontend-HTML/CSS/JS-green)
